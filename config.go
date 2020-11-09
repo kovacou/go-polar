@@ -5,12 +5,27 @@
 
 package polar
 
+import (
+	"encoding/base64"
+	"fmt"
+)
+
 // Config is the configuration for the client to request Polar API.
 type Config struct {
-	Host         string `json:"host"`
-	LimitRate    uint8  `json:"limit_rate"`
-	Timeout      uint16 `json:"timeout"`
-	Bearer       string `json:"bearer"`
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	Host         string `json:"host" env:"POLAR_HOST"`
+	LimitRate    uint8  `json:"limit_rate" env:"POLAR_LIMITRATE"`
+	Timeout      uint16 `json:"timeout" env:"POLAR_TIMETOUT"`
+	ClientID     string `json:"client_id" env:"POLAR_ID"`
+	ClientSecret string `json:"client_secret" env:"POLAR_SECRET"`
+
+	token string
+}
+
+// AuthorizationToken return the token based on configuration.
+func (c *Config) AuthorizationToken() string {
+	if c.token == "" {
+		c.token = "Basic " + base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.ClientID, c.ClientSecret)))
+	}
+
+	return c.token
 }
