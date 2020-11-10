@@ -181,13 +181,22 @@ func (p *polar) User() (u User, err error) {
 	return
 }
 
+// SLeep is the representation of an Polar sleep.
+type Sleep struct {
+}
+
+// Sleep returns information of sleep for the given date.
+func (p *polar) Sleep(date time.Time) (s Sleep, err error) {
+
+	return
+}
+
 // CreateTransaction creates a new transaction.
 func (p *polar) CreateTransaction() {
 }
 
 // Commit a transaction.
 func (p *polar) Commit() {
-
 }
 
 // Request
