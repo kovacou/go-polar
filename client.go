@@ -165,13 +165,13 @@ type User struct {
 
 // User returns information about the current user.
 func (p *polar) User() (u User, err error) {
-	r, err := p.GET("/v3/users", RequestParams{
+	r, _ := p.GET("/v3/users", RequestParams{
 		Values: types.Map{
 			"member-id": p.userID,
 		},
 	})
 
-	if r.StatusCode == http.StatusOK {
+	if ok := r.StatusCode == http.StatusOK; ok {
 		defer r.Body.Close()
 
 		body, _ := ioutil.ReadAll(r.Body)
