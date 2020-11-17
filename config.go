@@ -18,14 +18,15 @@ type Config struct {
 	ClientID     string `json:"client_id" env:"POLAR_ID"`
 	ClientSecret string `json:"client_secret" env:"POLAR_SECRET"`
 
-	token string
+	// authorizationToken is the cache of the basic authentication.
+	authorizationToken string
 }
 
 // AuthorizationToken return the token based on configuration.
 func (c *Config) AuthorizationToken() string {
-	if c.token == "" {
-		c.token = "Basic " + base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.ClientID, c.ClientSecret)))
+	if c.authorizationToken == "" {
+		c.authorizationToken = "Basic " + base64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("%s:%s", c.ClientID, c.ClientSecret)))
 	}
 
-	return c.token
+	return c.authorizationToken
 }

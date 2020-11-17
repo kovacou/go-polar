@@ -187,7 +187,6 @@ type Sleep struct {
 
 // Sleep returns information of sleep for the given date.
 func (p *polar) Sleep(date time.Time) (s Sleep, err error) {
-
 	return
 }
 
