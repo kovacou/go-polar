@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"time"
 
 	"github.com/Jeffail/gabs"
 )
@@ -21,7 +20,7 @@ type Recharge struct {
 }
 
 // Recharge returns information about the recharge of the given date.
-func (p *polar) Recharge(date time.Time) (out Recharge, err error) {
+func (p *polar) Recharge(date string) (out Recharge, err error) {
 	r, err := p.GET(fmt.Sprintf("/v3/users/nightly-recharge/%s", date), RequestParams{
 		WithBearer: true,
 	})

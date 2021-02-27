@@ -10,15 +10,15 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"time"
 
 	"github.com/Jeffail/gabs"
+	"github.com/kovacou/go-types"
 )
 
 // Sleep is the representation of an Polar sleep.
 type Sleep struct {
 	Continuity   float64 `json:"continuity"`
-	Score        uint8   `json:"sleep_score"`
+	Score        uint64  `json:"sleep_score"`
 	Light        uint64  `json:"light_sleep"`
 	Deep         uint64  `json:"deep_sleep"`
 	Rem          uint64  `json:"rem_sleep"`
@@ -26,8 +26,8 @@ type Sleep struct {
 	DeviceID     string  `json:"device_id"`
 
 	// Dates
-	Start time.Time `json:"sleep_start_time"`
-	End   time.Time `json:"sleep_end_time"`
+	Start types.DateTime `json:"sleep_start_time"`
+	End   types.DateTime `json:"sleep_end_time"`
 }
 
 // Sleep returns information of sleep for the given date.

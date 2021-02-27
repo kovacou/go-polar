@@ -17,13 +17,7 @@ import (
 	"time"
 
 	"github.com/kovacou/go-convert"
-	"github.com/kovacou/go-env"
 	"github.com/kovacou/go-types"
-)
-
-var (
-	// cfgEnviron contains the loaded configuration from environment.
-	cfgEnviron Config
 )
 
 // Client is the client interface of Polar service.
@@ -57,9 +51,15 @@ type Client interface {
 
 	// LastSleeps returns information about the last 28 days of sleep.
 	LastSleeps() ([]Sleep, error)
+
+	// Recharge returns information about the recharge of the given date.
+	Recharge(string) (Recharge, error)
+
+	// Sleep returns information of sleep for the given date.
+	Sleep(string) (Sleep, error)
 }
 
-// RequestParams define the parameter to request the API.
+// RequestParams define the parameters to request the API.
 type RequestParams struct {
 	Queries            types.Map
 	Values             types.Map
@@ -73,11 +73,6 @@ type AccessToken struct {
 	Type      string `json:"token_type"`
 	ExpiresIn uint   `json:"expires_in"`
 	XUserID   uint64 `json:"x_user_id"`
-}
-
-// init loads the global configuration.
-func init() {
-	env.Unmarshal(&cfgEnviron)
 }
 
 // close is used as defer to automatically close the body and prevent memory leak.
@@ -185,7 +180,7 @@ func (p *polar) Request(method, uri string, params RequestParams) (*http.Respons
 		}
 	}
 
-	r, err := http.NewRequest(method, uri, values)
+	req, err := http.NewRequest(method, uri, values)
 	if err != nil {
 		return nil, err
 	}
@@ -204,24 +199,32 @@ func (p *polar) Request(method, uri string, params RequestParams) (*http.Respons
 		contentType = "application/json"
 	}
 
-	r.Header.Set("Authorization", token)
-	r.Header.Set("Content-Type", contentType)
-	r.Header.Set("Accept", "application/json;charset=UTF-8")
+	// Encoding the queries and updating the raw query.
+	q := url.Values{}
+	for k, val := range params.Queries {
+		q.Set(k, convert.String(val))
+	}
+	req.URL.RawQuery = q.Encode()
 
-	return p.Do(r)
+	// Setting up the headers.
+	req.Header.Set("Authorization", token)
+	req.Header.Set("Content-Type", contentType)
+	req.Header.Set("Accept", "application/json;charset=UTF-8")
+
+	return p.Do(req)
 }
 
-// GET
+// GET creates a new GET request.
 func (p *polar) GET(endpoint string, params RequestParams) (*http.Response, error) {
 	return p.Request(http.MethodGet, p.cfg.Host+endpoint, params)
 }
 
-// POST
+// POST creates a new POST request.
 func (p *polar) POST(endpoint string, params RequestParams) (*http.Response, error) {
 	return p.Request(http.MethodPost, p.cfg.Host+endpoint, params)
 }
 
-// DELETE
+// DELETE creates a new DELETE request.
 func (p *polar) DELETE(endpoint string, params RequestParams) (*http.Response, error) {
 	return p.Request(http.MethodDelete, p.cfg.Host+endpoint, params)
 }

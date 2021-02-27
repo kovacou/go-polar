@@ -8,7 +8,19 @@ package polar
 import (
 	"encoding/base64"
 	"fmt"
+
+	"github.com/kovacou/go-env"
 )
+
+var (
+	// cfgEnviron contains the loaded configuration from environment.
+	cfgEnviron Config
+)
+
+// init loads the global configuration.
+func init() {
+	env.Unmarshal(&cfgEnviron)
+}
 
 // Config is the configuration for the client to request Polar API.
 type Config struct {
