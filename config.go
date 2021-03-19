@@ -19,7 +19,7 @@ var (
 
 // init loads the global configuration.
 func init() {
-	env.Unmarshal(&cfgEnviron)
+	_ = env.Unmarshal(&cfgEnviron)
 }
 
 // Config is the configuration for the client to request Polar API.
