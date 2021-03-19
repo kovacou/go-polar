@@ -4,8 +4,9 @@ github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dvyukov/go-fuzz v0.0.0-20200318091601-be3528f3a813/go.mod h1:11Gm+ccJnvAhCNLlf5+cS9KjtbaD5I5zaZpFMsTHWTw=
-github.com/kovacou/go-convert v0.0.2 h1:7YLg0dj3VjF9xL0yofTc7is4Zo6UGPf4ninOVUKqMpY=
 github.com/kovacou/go-convert v0.0.2/go.mod h1:W0aHedXQBDqsPKz/SUzRUolN7vgBrcYjCGJlz2e6/Ho=
+github.com/kovacou/go-convert v0.0.4 h1:cON0Dk4HZbRCyCo1/QzHTX/0JTE3Ky9myZ9o+++O1wI=
+github.com/kovacou/go-convert v0.0.4/go.mod h1:H1D/Ax6ghGr1+sj2W3ULu2Dhg+O0n6AjkKBBfGHxpLQ=
 github.com/kovacou/go-env v0.0.1 h1:dRAW2nXE/y30XBvs3vhUD1gpv0TdjnSpPGh7cflk65U=
 github.com/kovacou/go-env v0.0.1/go.mod h1:s3kSbiPfYLP5cdE/rXByAN8qOE9HODMcOuCs8Va/RPQ=
 github.com/kovacou/go-types v0.0.1 h1:E/Va8jXoIVaRYPsPMTFIh8/Q3AnHnqdl0W2EN5n5cgk=
